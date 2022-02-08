@@ -14,6 +14,9 @@ int main(int argc, char *argv[]){
     } else if (strcmp(input, "p") == 0){
       llist_print(head);
     }
+    else if (strcmp(input, "dh") == 0){
+      llist_delete_head(&head);
+    }
   }
   return 0;
 }
@@ -34,6 +37,13 @@ void llist_print(struct node *head){
     ptr = ptr->next;
   }
   printf("\n");
+}
+struct node *llist_delete_head(struct node **head){
+  if(*head == NULL) return NULL;
+  struct node *old = *head;
+  struct node *next = (*head)->next;
+  *head = next;
+  return old;
 }
 struct node *node_alloc(int value){
   struct node *head = malloc(sizeof(struct node));
