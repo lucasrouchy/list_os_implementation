@@ -8,7 +8,7 @@ int main(int argc, char *argv[]){
   struct node *head = NULL;
   for (int i = 1; i <argc; i++){
     char *input = argv[i];
-    if (strcmp(input, "it") == 0){
+    if (strcmp(input, "ih") == 0){
       int num = atoi(argv[i+1]);
       llist_insert_head(&head, node_alloc(num));
     } else if (strcmp(input, "p") == 0){
@@ -16,6 +16,10 @@ int main(int argc, char *argv[]){
     }
     else if (strcmp(input, "dh") == 0){
       llist_delete_head(&head);
+    }
+    if (strcmp(input, "it") == 0){
+      int num = atoi(argv[i+1]);
+      llist_insert_tail(&head, node_alloc(num));
     }
   }
   return 0;
@@ -44,6 +48,14 @@ struct node *llist_delete_head(struct node **head){
   struct node *next = (*head)->next;
   *head = next;
   return old;
+}
+void llist_insert_tail(struct node **head, struct node *n){
+  if (*head == NULL) *head = n;
+  else{
+    struct node *ptr = *head;
+    while (ptr->next != NULL) ptr = ptr ->next;
+    ptr->next = n;
+  }
 }
 struct node *node_alloc(int value){
   struct node *head = malloc(sizeof(struct node));
