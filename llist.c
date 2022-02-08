@@ -64,9 +64,12 @@ void llist_free(struct node **head){
   if (*head == NULL) return;
 
   llist_free(&(*head)->next);
-  free(*head);
+  node_free(*head);
   *head = NULL;
 
+}
+void node_free(struct node *n){
+  free(n);
 }
 struct node *node_alloc(int value){
   struct node *head = malloc(sizeof(struct node));
