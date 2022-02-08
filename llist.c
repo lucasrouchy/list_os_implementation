@@ -21,6 +21,9 @@ int main(int argc, char *argv[]){
       int num = atoi(argv[i+1]);
       llist_insert_tail(&head, node_alloc(num));
     }
+    if (strcmp(input, "f") == 0){
+      llist_free(&head);
+    }
   }
   return 0;
 }
@@ -56,6 +59,14 @@ void llist_insert_tail(struct node **head, struct node *n){
     while (ptr->next != NULL) ptr = ptr ->next;
     ptr->next = n;
   }
+}
+void llist_free(struct node **head){
+  if (*head == NULL) return;
+
+  llist_free(&(*head)->next);
+  free(*head);
+  *head = NULL;
+
 }
 struct node *node_alloc(int value){
   struct node *head = malloc(sizeof(struct node));
